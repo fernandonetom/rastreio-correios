@@ -79,8 +79,8 @@ function Tracking(rastreios) {
                                     case 1:
                                         _a.trys.push([1, 3, , 4]);
                                         return [4 /*yield*/, Promise.any([
-                                                (0, MelhorEnvio_service_1.MelhorEnvioService)(lista[0]),
-                                                (0, LinkCorreios_service_1.LinkCorreiosService)(lista[0]),
+                                                (0, MelhorEnvio_service_1.MelhorEnvioService)(rastreio),
+                                                (0, LinkCorreios_service_1.LinkCorreiosService)(rastreio),
                                             ])];
                                     case 2:
                                         response = _a.sent();
