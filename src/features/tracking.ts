@@ -45,8 +45,8 @@ export async function Tracking(
       const start = new Date().getTime();
       try {
         const response = await Promise.any([
-          MelhorEnvioService(lista[0]),
-          LinkCorreiosService(lista[0]),
+          MelhorEnvioService(rastreio),
+          LinkCorreiosService(rastreio),
         ]);
 
         const responseTime = new Date().getTime() - start;
