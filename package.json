@@ -1,6 +1,6 @@
 {
   "name": "rastreio-correios",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Biblioteca que permite rastrear objetos dos correios do Brasil",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,10 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "Rastreio", 
-    "Correios", 
-    "Rastrear Correios", 
-    "Brasil", 
+    "Rastreio",
+    "Correios",
+    "Rastrear Correios",
+    "Brasil",
     "Correios Brasil",
     "Encomendas"
   ],
