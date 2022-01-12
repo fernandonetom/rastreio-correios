@@ -76,18 +76,21 @@ function htmlToArray(response: string): RastreioEvent[] {
       hora: '',
     };
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    html(ulNode).find('li').each((_, element) => {
-      const text = html(element).text();
-      if (text.includes('Status')) event.status = formatStatus(text);
-      if (text.includes('Data')) {
-        const [data, hour] = formatDateTime(text);
-        event.data = data;
-        event.hora = hour;
-      }
-      if (text.includes('Local')) event.local = formatLocal(text);
-      if (text.includes('Origem')) event.origem = formatOrigin(text);
-      if (text.includes('Destino')) event.destino = formatDestiny(text);
-    });
+    html(ulNode)
+      .find('li')
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      .each((_, element) => {
+        const text = html(element).text();
+        if (text.includes('Status')) event.status = formatStatus(text);
+        if (text.includes('Data')) {
+          const [data, hour] = formatDateTime(text);
+          event.data = data;
+          event.hora = hour;
+        }
+        if (text.includes('Local')) event.local = formatLocal(text);
+        if (text.includes('Origem')) event.origem = formatOrigin(text);
+        if (text.includes('Destino')) event.destino = formatDestiny(text);
+      });
 
     events.push(event);
   });
@@ -97,8 +100,12 @@ function htmlToArray(response: string): RastreioEvent[] {
   return events;
 }
 
-export async function LinkCorreiosService(rastreio: string): Promise<LinkCorreiosResponse> {
-  const { data } = await axios.get(`https://www.linkcorreios.com.br/?id=${rastreio}`);
+export async function LinkCorreiosService(
+  rastreio: string
+): Promise<LinkCorreiosResponse> {
+  const { data } = await axios.get(
+    `https://www.linkcorreios.com.br/?id=${rastreio}`
+  );
 
   const response = htmlToArray(data);
 

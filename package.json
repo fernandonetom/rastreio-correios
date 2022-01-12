@@ -15,10 +15,19 @@
     "Rastrear Correios",
     "Brasil",
     "Correios Brasil",
-    "Encomendas"
+    "Encomendas",
+    "Api Correios",
+    "Rastreamento",
+    "rastreio de pacotes",
+    "sro",
+    "correio"
   ],
-  "author": "Fernando",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fernandonetom/rastreio-correios"
+  },
+  "author": "Fernando <fernando39357@gmail.com>",
+  "license": "Apache License 2.0",
   "devDependencies": {
     "@types/node": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^5.9.0",

@@ -91,7 +91,10 @@ function htmlToArray(response) {
             hora: '',
         };
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        html(ulNode).find('li').each(function (_, element) {
+        html(ulNode)
+            .find('li')
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            .each(function (_, element) {
             var text = html(element).text();
             if (text.includes('Status'))
                 event.status = formatStatus(text);

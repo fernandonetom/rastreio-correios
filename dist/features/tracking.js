@@ -48,6 +48,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tracking = void 0;
 var LinkCorreios_service_1 = require("../services/LinkCorreios.service");
 var MelhorEnvio_service_1 = require("../services/MelhorEnvio.service");
+var codeValidator_1 = require("../utils/codeValidator");
 var siglasDatabase_1 = require("../utils/siglasDatabase");
 /**
  * Rastreia um ou mais códigos de rastreio
@@ -61,6 +62,8 @@ function Tracking(rastreios) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    if (!rastreios)
+                        throw new Error('Códigos de rastreio não foram informados');
                     lista = [];
                     if (typeof rastreios === 'string') {
                         lista.push(rastreios);
@@ -78,6 +81,8 @@ function Tracking(rastreios) {
                                         _a.label = 1;
                                     case 1:
                                         _a.trys.push([1, 3, , 4]);
+                                        if (!(0, codeValidator_1.codeValidator)(rastreio))
+                                            throw new Error('Código de rastreio inválido');
                                         return [4 /*yield*/, Promise.any([
                                                 (0, MelhorEnvio_service_1.MelhorEnvioService)(rastreio),
                                                 (0, LinkCorreios_service_1.LinkCorreiosService)(rastreio),

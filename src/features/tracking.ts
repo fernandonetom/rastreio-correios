@@ -1,5 +1,6 @@
 import { LinkCorreiosService } from '../services/LinkCorreios.service';
 import { MelhorEnvioService } from '../services/MelhorEnvio.service';
+import { codeValidator } from '../utils/codeValidator';
 import { siglas } from '../utils/siglasDatabase';
 
 interface RastreioResult {
@@ -30,6 +31,8 @@ interface RastreioEvent {
 export async function Tracking(
   rastreios: string | string[]
 ): Promise<RastreioResult[]> {
+  if (!rastreios) throw new Error('Códigos de rastreio não foram informados');
+
   let lista: string[] = [];
 
   if (typeof rastreios === 'string') {
@@ -44,6 +47,9 @@ export async function Tracking(
     lista.map(async (rastreio) => {
       const start = new Date().getTime();
       try {
+        if (!codeValidator(rastreio))
+          throw new Error('Código de rastreio inválido');
+
         const response = await Promise.any([
           MelhorEnvioService(rastreio),
           LinkCorreiosService(rastreio),
