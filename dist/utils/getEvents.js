@@ -1,13 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getEvents = void 0;
+function getHora(date) {
+    if (date.length === 24) {
+        // is ISO
+        return date.slice(11, -8);
+    }
+    return date.replace(/ (.)+/g, '');
+}
+function getDate(date) {
+    if (date.length === 24) {
+        // is ISO
+        return date.slice(0, -14);
+    }
+    return date.replace(/(.)+ /g, '').slice(0, -3);
+}
 function getEvents(response, tag) {
     var filteredEvents = response.data[tag].filter(function (item) { return item.tag !== 'added'; });
     return filteredEvents.map(function (item) {
         var evento = {
             status: item.events,
-            data: item.date.replace(/ (.)+/g, ''),
-            hora: item.date.replace(/(.)+ /g, '').slice(0, -3),
+            data: getHora(item.date),
+            hora: getDate(item.date),
             origem: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
             local: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
         };

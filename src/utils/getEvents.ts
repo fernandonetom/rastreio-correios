@@ -1,5 +1,21 @@
 import { RastreioEvent } from '../interfaces/rastreio';
 
+function getHora(date: string) {
+  if (date.length === 24) {
+    // is ISO
+    return date.slice(11, -8);
+  }
+  return date.replace(/ (.)+/g, '');
+}
+
+function getDate(date: string) {
+  if (date.length === 24) {
+    // is ISO
+    return date.slice(0, -14);
+  }
+  return date.replace(/(.)+ /g, '').slice(0, -3);
+}
+
 export function getEvents(response, tag) {
   const filteredEvents = response.data[tag].filter(
     (item) => item.tag !== 'added'
@@ -8,8 +24,8 @@ export function getEvents(response, tag) {
   return filteredEvents.map((item) => {
     const evento: RastreioEvent = {
       status: item.events,
-      data: item.date.replace(/ (.)+/g, ''),
-      hora: item.date.replace(/(.)+ /g, '').slice(0, -3),
+      data: getHora(item.date),
+      hora: getDate(item.date),
       origem: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
       local: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
     };

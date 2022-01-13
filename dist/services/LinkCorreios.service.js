@@ -55,7 +55,9 @@ function formatDateTime(str) {
         .replace('Data:', '')
         .replace('Hora:', '')
         .split('|');
-    return res;
+    var oldDate = res[0].split('/');
+    var date = "".concat(oldDate[2], "-").concat(oldDate[1], "-").concat(oldDate[0]);
+    return [date, res[1]];
 }
 function formatLocal(str) {
     var res = str

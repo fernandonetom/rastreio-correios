@@ -35,7 +35,10 @@ function formatDateTime(str: string): string[] {
     .replace('Hora:', '')
     .split('|');
 
-  return res;
+  const oldDate = res[0].split('/');
+  const date = `${oldDate[2]}-${oldDate[1]}-${oldDate[0]}`;
+
+  return [date, res[1]];
 }
 
 function formatLocal(str: string): string {

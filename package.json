@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc-watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it"
   },
   "keywords": [
     "Rastreio",
@@ -26,6 +27,12 @@
     "type": "git",
     "url": "https://github.com/fernandonetom/rastreio-correios"
   },
+  "git": {
+    "commitMessage": "chore: release v${version}"
+  },
+  "github": {
+    "release": true
+  },
   "author": "Fernando <fernando39357@gmail.com>",
   "license": "Apache License 2.0",
   "devDependencies": {
@@ -39,6 +46,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
+    "release-it": "^14.12.1",
     "tsc-watch": "^4.6.0",
     "typescript": "^4.5.4"
   },
