@@ -6,14 +6,14 @@ function getHora(date) {
         // is ISO
         return date.slice(11, -8);
     }
-    return date.replace(/ (.)+/g, '');
+    return date.replace(/(.)+ /g, '').slice(0, -3);
 }
 function getDate(date) {
     if (date.length === 24) {
         // is ISO
         return date.slice(0, -14);
     }
-    return date.replace(/(.)+ /g, '').slice(0, -3);
+    return date.replace(/ (.)+/g, '');
 }
 function getEvents(response, tag) {
     var filteredEvents = response.data[tag].filter(function (item) { return item.tag !== 'added'; });

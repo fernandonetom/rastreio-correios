@@ -5,7 +5,7 @@ function getHora(date: string) {
     // is ISO
     return date.slice(11, -8);
   }
-  return date.replace(/ (.)+/g, '');
+  return date.replace(/(.)+ /g, '').slice(0, -3);
 }
 
 function getDate(date: string) {
@@ -13,7 +13,7 @@ function getDate(date: string) {
     // is ISO
     return date.slice(0, -14);
   }
-  return date.replace(/(.)+ /g, '').slice(0, -3);
+  return date.replace(/ (.)+/g, '');
 }
 
 export function getEvents(response, tag) {
