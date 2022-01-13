@@ -1,3 +1,4 @@
+import * as Any from 'promise.any';
 import { RastreioEvent, RastreioResult } from '../interfaces/rastreio';
 import { LinkCorreiosService } from '../services/LinkCorreios.service';
 import { MelhorEnvioService } from '../services/MelhorEnvio.service';
@@ -33,7 +34,7 @@ export async function Tracking(
         if (!codeValidator(rastreio))
           throw new Error('Código de rastreio inválido');
 
-        const response = await Promise.any([
+        const response = await Any([
           MelhorEnvioService(rastreio),
           LinkCorreiosService(rastreio),
         ]);

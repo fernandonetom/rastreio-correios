@@ -46,6 +46,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tracking = void 0;
+var Any = require("promise.any");
 var LinkCorreios_service_1 = require("../services/LinkCorreios.service");
 var MelhorEnvio_service_1 = require("../services/MelhorEnvio.service");
 var codeValidator_1 = require("../utils/codeValidator");
@@ -84,7 +85,7 @@ function Tracking(rastreios) {
                                         _a.trys.push([1, 3, , 4]);
                                         if (!(0, codeValidator_1.codeValidator)(rastreio))
                                             throw new Error('Código de rastreio inválido');
-                                        return [4 /*yield*/, Promise.any([
+                                        return [4 /*yield*/, Any([
                                                 (0, MelhorEnvio_service_1.MelhorEnvioService)(rastreio),
                                                 (0, LinkCorreios_service_1.LinkCorreiosService)(rastreio),
                                             ])];
