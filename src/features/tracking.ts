@@ -1,26 +1,9 @@
+import { RastreioEvent, RastreioResult } from '../interfaces/rastreio';
 import { LinkCorreiosService } from '../services/LinkCorreios.service';
 import { MelhorEnvioService } from '../services/MelhorEnvio.service';
 import { codeValidator } from '../utils/codeValidator';
+import { getEvents } from '../utils/getEvents';
 import { siglas } from '../utils/siglasDatabase';
-
-interface RastreioResult {
-  sucesso: boolean;
-  rastreio: string;
-  responseTime: number;
-  mensagem?: string;
-  entregue?: boolean;
-  eventos?: RastreioEvent[];
-  type?: string;
-}
-
-interface RastreioEvent {
-  status: string;
-  data: string;
-  hora: string;
-  origem?: string;
-  destino?: string;
-  local?: string;
-}
 
 /**
  * Rastreia um ou mais códigos de rastreio
@@ -62,32 +45,26 @@ export async function Tracking(
         const type = siglas[rastreio.slice(0, 2)] || 'Não identificado';
 
         if (response.service === 'melhorEnvio') {
+          const eventos: RastreioEvent[] = response.data.events
+            ? getEvents(response, 'events')
+            : getEvents(response, 'event');
+
+          eventos.forEach((item) => {
+            if (item.status.toLowerCase().includes('entregue')) entregue = true;
+          });
+
           result.push({
             sucesso: true,
             rastreio,
-            eventos: response.data.events.map((item) => {
-              const evento: RastreioEvent = {
-                status: item.events,
-                data: item.date.replace(/ (.)+/g, ''),
-                hora: item.date.replace(/(.)+ /g, '').slice(0, -3),
-                origem: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
-                local: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
-              };
-
-              if (item.destination_local) {
-                evento.destino = `${item.destination_local} - ${item.destination_city} / ${item.destination_uf}`;
-              }
-
-              if (item.events.toLowerCase().includes('entregue'))
-                entregue = true;
-
-              return evento;
-            }),
+            eventos,
             responseTime,
             entregue,
             type,
           });
         } else {
+          if (response.data.events.length === 0)
+            throw new Error('Rastreamento não encontrado');
+
           result.push({
             sucesso: true,
             rastreio,

@@ -49,6 +49,7 @@ exports.Tracking = void 0;
 var LinkCorreios_service_1 = require("../services/LinkCorreios.service");
 var MelhorEnvio_service_1 = require("../services/MelhorEnvio.service");
 var codeValidator_1 = require("../utils/codeValidator");
+var getEvents_1 = require("../utils/getEvents");
 var siglasDatabase_1 = require("../utils/siglasDatabase");
 /**
  * Rastreia um ou mais códigos de rastreio
@@ -73,7 +74,7 @@ function Tracking(rastreios) {
                     }
                     result = [];
                     return [4 /*yield*/, Promise.all(lista.map(function (rastreio) { return __awaiter(_this, void 0, void 0, function () {
-                            var start, response, responseTime, entregue_1, type, error_1, responseTime;
+                            var start, response, responseTime, entregue_1, type, eventos, error_1, responseTime;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
@@ -93,30 +94,25 @@ function Tracking(rastreios) {
                                         entregue_1 = false;
                                         type = siglasDatabase_1.siglas[rastreio.slice(0, 2)] || 'Não identificado';
                                         if (response.service === 'melhorEnvio') {
+                                            eventos = response.data.events
+                                                ? (0, getEvents_1.getEvents)(response, 'events')
+                                                : (0, getEvents_1.getEvents)(response, 'event');
+                                            eventos.forEach(function (item) {
+                                                if (item.status.toLowerCase().includes('entregue'))
+                                                    entregue_1 = true;
+                                            });
                                             result.push({
                                                 sucesso: true,
                                                 rastreio: rastreio,
-                                                eventos: response.data.events.map(function (item) {
-                                                    var evento = {
-                                                        status: item.events,
-                                                        data: item.date.replace(/ (.)+/g, ''),
-                                                        hora: item.date.replace(/(.)+ /g, '').slice(0, -3),
-                                                        origem: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
-                                                        local: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
-                                                    };
-                                                    if (item.destination_local) {
-                                                        evento.destino = "".concat(item.destination_local, " - ").concat(item.destination_city, " / ").concat(item.destination_uf);
-                                                    }
-                                                    if (item.events.toLowerCase().includes('entregue'))
-                                                        entregue_1 = true;
-                                                    return evento;
-                                                }),
+                                                eventos: eventos,
                                                 responseTime: responseTime,
                                                 entregue: entregue_1,
                                                 type: type,
                                             });
                                         }
                                         else {
+                                            if (response.data.events.length === 0)
+                                                throw new Error('Rastreamento não encontrado');
                                             result.push({
                                                 sucesso: true,
                                                 rastreio: rastreio,
