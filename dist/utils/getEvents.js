@@ -20,8 +20,8 @@ function getEvents(response, tag) {
     return filteredEvents.map(function (item) {
         var evento = {
             status: item.events,
-            data: getHora(item.date),
-            hora: getDate(item.date),
+            data: getDate(item.date),
+            hora: getHora(item.date),
             origem: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
             local: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
         };

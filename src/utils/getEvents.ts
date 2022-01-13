@@ -24,8 +24,8 @@ export function getEvents(response, tag) {
   return filteredEvents.map((item) => {
     const evento: RastreioEvent = {
       status: item.events,
-      data: getHora(item.date),
-      hora: getDate(item.date),
+      data: getDate(item.date),
+      hora: getHora(item.date),
       origem: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
       local: `${item.local} - ${item.city || ''} / ${item.uf || ''}`,
     };
