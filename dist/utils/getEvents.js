@@ -26,7 +26,7 @@ function getEvents(response, tag) {
             local: "".concat(item.local, " - ").concat(item.city || '', " / ").concat(item.uf || ''),
         };
         if (item.destination_local) {
-            evento.destino = "".concat(item.destination_local, " - ").concat(item.destination_city, " / ").concat(item.destination_uf);
+            evento.destino = "".concat(item.destination_local || '', " - ").concat(item.destination_city || '', " / ").concat(item.destination_uf || '');
         }
         return evento;
     });

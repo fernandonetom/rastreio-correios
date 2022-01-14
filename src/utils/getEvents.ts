@@ -31,7 +31,9 @@ export function getEvents(response, tag) {
     };
 
     if (item.destination_local) {
-      evento.destino = `${item.destination_local} - ${item.destination_city} / ${item.destination_uf}`;
+      evento.destino = `${item.destination_local || ''} - ${
+        item.destination_city || ''
+      } / ${item.destination_uf || ''}`;
     }
 
     return evento;
