@@ -28,12 +28,6 @@
     "type": "git",
     "url": "https://github.com/fernandonetom/rastreio-correios"
   },
-  "git": {
-    "commitMessage": "chore: release v${version}"
-  },
-  "github": {
-    "release": true
-  },
   "author": "Fernando <fernando39357@gmail.com>",
   "license": "Apache License 2.0",
   "devDependencies": {
@@ -57,10 +51,18 @@
     "cheerio": "^1.0.0-rc.10",
     "promise.any": "^2.0.3"
   },
-  "plugins": {
-    "@release-it/conventional-changelog": {
-      "preset": "angular",
-      "infile": "CHANGELOG.md"
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
     }
   }
 }

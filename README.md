@@ -6,13 +6,21 @@
 
 > Rastreio correios é uma biblioteca que permite rastrear encomendas dos correios do Brasil
 
+## Conteúdo
+- [Funcionalidades](#funcionalidades)
+- [Instalação](#instalando)
+- [Como utilizar](#como-utilizar)
+- [Retorno dos dados](#retorno-dos-dados)
+- [Validação](#validacao)
+- [Autor](#autor)
+
 ## Funcionalidades
 - Múltiplos serviços de rastreio (Consumimos 2 APIs)
 - Foco em performece (Buscamos a API que retorna mais rápido)
 - Padronização dos retornos das APIs
 - Possibilidade de rastrear mais de 1 encomenda
 
-## Instalação
+## Instalando
 
 ```bash
 npm i rastreio-correios
@@ -68,3 +76,34 @@ RastreioResult {
   }[];
 }
 ```
+
+## Validação
+
+A lib possui um validador do formato do código de rastreio, quando o código informado não está de acordo com o padrão dos correios é retornado uma mansagem de erro:
+
+```js
+const { rastrear } = require('rastreio-correios');
+
+async myFn(){
+  try{
+    const result = await rastrear('XXA00000000BR');
+    console.log(result);
+    // {
+    //   sucesso: false,
+    //   rastreio: 'XXA00000000BR',
+    //   mensagem: 'Código de rastreio inválido',
+    //   responseTime: 0
+    // }
+  } catch(error){
+    console.log(error);
+  }
+}
+
+myFn();
+```
+
+## Autor
+
+
+| [<img src="https://avatars.githubusercontent.com/u/2446069?v=3&s=115"><br><sub>@fernandonetom</sub>](https://github.com/fernandonetom) |
+| :---: |
