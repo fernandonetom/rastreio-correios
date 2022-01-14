@@ -1,3 +1,5 @@
+## [1.1.7](https://github.com/fernandonetom/rastreio-correios/compare/v1.1.6...v1.1.7) (2022-01-14)
+
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
